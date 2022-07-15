@@ -29,16 +29,16 @@ def encrypter():
         morse_word = morse_lookup(sentences)
         print(morse_word)
     elif (en_ch == 2):
-        sha_input_text = input("Enter sentence(s) you wish to encrypt using SHA256 algorithm: ")
+        sha_input_text = input("Enter string you wish to encrypt using SHA256 algorithm: ")
         sha_output_text = sha_encrypt(sha_input_text)
         print(sha_output_text)
     elif (en_ch == 3):
-        fernet_input_text = input("Enter sentence(s) you wish to encrypt using Fernet: ")
+        fernet_input_text = input("Enter string you wish to encrypt using Fernet: ")
         fernet_output_text = fernet_encrypt(fernet_input_text)
         print("Enrypted Text: ")
         print(fernet_output_text)
     elif (en_ch == 4):
-        rsa_input_text = input("Enter sentence(s) you wish to encrypt using RSA: ")
+        rsa_input_text = input("Enter string you wish to encrypt using RSA: ")
         rsa_output_text = rsa_encrypt(rsa_input_text)
         print("Encrypted Text: ")
         print(rsa_output_text)
@@ -47,18 +47,18 @@ def decrypter():
     de_ch = int(input("Press:\n1: Morse Code\n2:Fernet:\n3:RSA\n\nEnter choice:-"))
 
     if (de_ch == 1): 
-        morse_sentences = input("Enter a sentence in Morse Code: ")
+        morse_sentences = input("Enter string in Morse Code: ")
         morse_sentences = morse_sentences.upper()
         normal_word = normal_lookup(morse_sentences)
         print(normal_word)
     elif (de_ch == 2):
-        norm_fern_input_text = input("Enter sentence(s) you wish to decrypt using Fernet: ")
+        norm_fern_input_text = input("Enter string you wish to decrypt using Fernet: ")
         norm_key = input("Enter the key: ")
         norm_fern_output_text = fernet_decrypt(norm_fern_input_text, norm_key)
         print("Decrypted Text: ")
         print(norm_fern_output_text)
     elif (de_ch == 3):
-        norm_rsa_input_text = input("Enter sentence(s) you wish to decrypt using RSA: ")
+        norm_rsa_input_text = input("Enter string you wish to decrypt using RSA: ")
         norm_privateKey = input("Enter private key of RSA: ")
         norm_rsa_output_text = rsa_decrypt(norm_rsa_input_text, norm_privateKey)
         print("Decrypted Text: ")
