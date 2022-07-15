@@ -1,10 +1,12 @@
 # Encryptor Decryptor Project
 
 This is an Exploratory Project with the help of which I got to experience Cryptography
+edcli.py == CLI Encryptor Decryptor
+edf.py == File Encryptor Decryptor via CLI
 
 ##  About the Project
 
-As of now, the project consists of a CLI Based Python Program, which helps implement: -
+As of now, the project consists of two Python Programs, which help implement: -
 
 1) In Encryption: -
     a) Morse Code
@@ -32,7 +34,5 @@ As of now, the project consists of a CLI Based Python Program, which helps imple
 The program should work well. Do feel free to let me know if you face any issues.
 
 I have also added the text documents for the conversion of English to Morse Code and vice-versa
-
-Will try to add the File Encryption Program to this repo ASAP
 
 Thanks :)
