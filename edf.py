@@ -4,7 +4,6 @@ This is just an exploratory project to explore cryptography
 '''
 
 '''File Encryptor '''
-'''Will soon modify this program to add file decryptor functionalities as well'''
 
 import hashlib
 from cryptography.fernet import Fernet
