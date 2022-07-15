@@ -271,5 +271,6 @@ def rsa_encrypt(rsa_input_text, publicKey):
 def rsa_decrypt(norm_rsa_input_text, privateKey):
     rsa_decrypted = rsa.decrypt(norm_rsa_input_text, privateKey).decode()
     return rsa_decrypted
-
-main()
+class edf:
+    def __init__(self):
+        self.main()
