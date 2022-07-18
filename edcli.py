@@ -7,6 +7,8 @@ This is just an exploratory project to explore cryptography
 import hashlib
 from cryptography.fernet import Fernet
 import rsa
+from morse_char_dict import morse_char_dict
+from char_dict import char_dict
 
 rsa_publicKey, rsa_privateKey, ferNet_Key = "", "", ""
 
@@ -50,9 +52,8 @@ def encrypter():
         rsa_input_text = input("Enter string you wish to encrypt using RSA:")
         print("\n\n")
         length = int(input("Enter length of rsa keys (Minimum length = 16): "))
-        publicKey, privateKey = rsa.newkeys(length)
-        rsa_privateKey = privateKey
-        rsa_publicKey = publicKey        
+        publicKey, privateKey = rsa.newkeys(length)     
+        rsa_publicKey, rsa_privateKey = publicKey, privateKey
         rsa_output_text = rsa_encrypt(rsa_input_text, publicKey)
         print("Encrypted Text: ")
         print(rsa_output_text)
@@ -65,12 +66,15 @@ def decrypter():
         morse_sentences = morse_sentences.upper()
         normal_word = normal_lookup(morse_sentences)
         print(normal_word)
+
     elif (de_ch == 2):
         norm_fern_input_text = input("Enter string you wish to decrypt using Fernet: ")
-        norm_key = input("Enter the key: ")
-        norm_fern_output_text = fernet_decrypt(norm_fern_input_text, norm_key)
+        bytes(norm_fern_input_text, 'utf-8')
+        norm_key_file = input("Enter file in which key is stored: ")
+        norm_fern_output_text = fernet_decrypt(norm_fern_input_text, norm_key_file)
         print("Decrypted Text: ")
         print(norm_fern_output_text)
+
     elif (de_ch == 3):
         question = input("Have you used this program to encrypt a string using RSA before?[Y/N]: ")
         
@@ -87,66 +91,7 @@ def decrypter():
             print("You MUST first use this program to ENCRYPT a string using RSA before trying to decrypt the string!!!")
 
 def morse_lookup(a):
-    morse_char_dict = {
-        'A': '.- ',
-        'B': '-... ',
-        'C': '-.-. ',
-        'D': '-.. ',
-        'E': '. ',
-        'F': '..-. ',
-        'G': '--. ',
-        'H': '.... ',
-        'I': '.. ',
-        'J': '.--- ',
-        'K': '-.- ',
-        'L': '.-.. ',
-        'M': '-- ',
-        'N': '-. ',
-        'O': '--- ',
-        'P': '.--. ',
-        'Q': '--.- ',
-        'R': '.-. ',
-        'S': '... ',
-        'T': '- ',
-        'U': '..- ',
-        'V': '...- ',
-        'W': '.-- ',
-        'X': '-..- ',
-        'Y': '-.-- ',
-        'Z': '--.. ',
-        '1': '.---- ',
-        '2': '..--- ',
-        '3': '...-- ',
-        '4': '....- ',
-        '5': '..... ',
-        '6': '-.... ',
-        '7': '--... ',
-        '8': '---.. ',
-        '9': '----. ',
-        '0': '----- ',
-        ' ': '/ ',
-        '.': '.-.-.- ',
-        ',': '--..-- ',
-        '?': '..--.. ',
-        "'": '.----. ',
-        '!': '-.-.-- ',
-        '/': '-..-. ',
-        '(': '-.--. ',
-        ')': '-.--.- ',
-        '&': '.-... ',
-        ':': '---... ',
-        ';': '-.-.-. ',
-        '=': '-...- ',
-        '+': '.-.-. ',
-        '-': '-....- ',
-        '_': '..--.- ',
-        '"': '.-..-. ',
-        '$': '...-..- ',
-        '@': '.--.-. ',
-        '¿': '..-.- ',
-        '¡': '--...- ',
-    }
-
+   
     morse_chars = ""
     for i in range(len(a)):
         if (a[i] != '\n'):
@@ -157,65 +102,6 @@ def morse_lookup(a):
     return morse_chars
 
 def normal_lookup(a):
-    char_dict = {
-        '.-': 'A',
-        '-...': 'B',
-        '-.-.': 'C',
-        '-..': 'D',
-        '.': 'E',
-        '..-.': 'F',
-        '--.': 'G',
-        '....': 'H',
-        '..': 'I',
-        '.---': 'J',
-        '-.-': 'K',
-        '.-..': 'L',
-        '--': 'M',
-        '-.': 'N',
-        '---': 'O',
-        '.--.': 'P',
-        '--.-': 'Q',
-        '.-.': 'R',
-        '...': 'S',
-        '-': 'T',
-        '..-': 'U',
-        '...-': 'V',
-        '.--': 'W',
-        '-..-': 'X',
-        '-.--': 'Y',
-        '--..': 'Z',
-        '.----': '1',
-        '..---': '2',
-        '...--': '3',
-        '....-': '4',
-        '.....': '5',
-        '-....': '6',
-        '--...' :'7',
-        '---..': '8',
-        '----.': '9',
-        '-----': '0',
-        '/': ' ',
-        '.-.-.-': '.',
-        '--..--': ',',
-        '..--..': '?',
-        '.----.': '"',
-        '-.-.--': '!',
-        '-..-.': '/',
-        '-.--.': '(',
-        '-.--.-': ')',
-        '.-...': '&',
-        '---...': ':',
-        '-.-.-.': ';',
-        '-...-': '=',
-        '.-.-.': '+',
-        '-....-': '-',
-        '..--.-': '_',
-        '.-..-.': '"',
-        '...-..-': '$',
-        '.--.-.': '@',
-        '..-.-': '¿',
-        '--...-': '¡',
-    }
 
     chars = ""
     a = a.split()
@@ -235,24 +121,27 @@ def sha_encrypt(sha_input):
 
 """Need to resolve Fernet Issues"""
 def fernet_encrypt(input_text):
-    choice = input("Press Y if you want fernet to generate key. Else, press N if you want to generate key: ")
-
-    if (choice == 'Y'):
-        key = Fernet.generate_key()
-        print("Your fernet key(remember this!!!) is: ", key)
-        fernet = Fernet(key)
-        f_encrypted = fernet.encrypt(input_text.encode())
-        return f_encrypted
-    else:
-        key = input("Enter key: ")
-        fernet = Fernet(key)
-        f_encrypted = fernet.encrypt(input_text.encode())
-        return f_encrypted
-
-def fernet_decrypt(input_text, key):
+    
+    key = Fernet.generate_key()
+    filename = input("Enter name of file in which you want to store the key(without any extensions): ")
+    fname = filename + '.key'
+    file = open(fname, 'wb')
+    file.write(key)
+    file.close()
     fernet = Fernet(key)
-    f_decrypt = fernet.decrypt(input_text).decode()
-    return f_decrypt
+    encoded = input_text.encode()
+    f_encrypted = fernet.encrypt(encoded)
+    return f_encrypted
+
+'''Resolve decryption based on CLI'''
+def fernet_decrypt(input_text, norm_key_file):
+    file = open(norm_key_file, 'rb')
+    key2 = file.read()
+    file.close()
+    fernet = Fernet(key2)
+    f_decrypt = fernet.decrypt(input_text)
+    fd = f_decrypt.decode()
+    return fd
 
 """Need to resolve OverflowError of messages"""
 def rsa_encrypt(rsa_input_text, publicKey):
